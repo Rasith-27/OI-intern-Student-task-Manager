@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StudyFlow — Professional Student Task Manager with Frontend Authentication built for OASIS INFOBYTE SIP Level 2 Task 3. Plan, track, and conquer assignments, exams, projects, and academic goals.">
+  <meta name="keywords" content="StudyFlow, Student Task Manager, To-Do Web App, Oasis Infobyte, Web Development, Academic Productivity">
+  <meta name="author" content="Mohamed Rasith M">
+  <title>StudyFlow — Student Task Manager | OASIS INFOBYTE</title>
+
+  <!-- Google Fonts: Inter (UI) & JetBrains Mono (Code/Timestamps) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       SCREEN 1: AUTHENTICATION SCREEN (Login & Registration)
+       ========================================================================= -->
+  <div id="authScreen" class="auth-screen-wrapper">
+    <!-- Auth Top Bar -->
+    <header class="auth-header">
+      <div class="auth-header-container">
+        <div class="brand-logo">
+          <span class="brand-icon">📚</span>
+          <div class="brand-text">
+            <span class="brand-title">STUDYFLOW</span>
+            <span class="brand-subtitle">Student Task Manager</span>
+          </div>
+        </div>
+
+        <button id="authThemeToggleBtn" class="btn-theme-toggle" aria-label="Toggle Dark and Light Theme" title="Toggle Theme (Dark/Light)">
+          <svg class="theme-icon sun-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="theme-icon moon-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <span class="theme-label" id="authThemeLabel">Light</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Auth Card Center -->
+    <main class="auth-main-container">
+      <div class="auth-card">
+        <!-- Auth Header Banner -->
+        <div class="auth-card-header">
+          <div class="auth-badge-icon">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+          </div>
+          <h1 class="auth-brand-name">STUDYFLOW</h1>
+          <p class="auth-brand-quote">&ldquo;Plan Better. Study Smarter. Achieve More.&rdquo;</p>
+        </div>
+
+        <!-- Auth Navigation Tabs -->
+        <div class="auth-tabs" role="tablist">
+          <button class="auth-tab active" id="tabLoginBtn" role="tab" aria-selected="true" aria-controls="loginFormContainer">
+            Sign In
+          </button>
+          <button class="auth-tab" id="tabRegisterBtn" role="tab" aria-selected="false" aria-controls="registerFormContainer">
+            Create Account
+          </button>
+        </div>
+
+        <!-- LOGIN FORM CONTAINER -->
+        <div id="loginFormContainer" class="auth-form-container active" role="tabpanel" aria-labelledby="tabLoginBtn">
+          <div class="form-intro">
+            <h2>Welcome Back 👋</h2>
+            <p>Sign in to manage your academic tasks and track your progress.</p>
+          </div>
+
+          <form id="loginForm" class="auth-form" novalidate autocomplete="on">
+            <!-- Email Field -->
+            <div class="form-field">
+              <label for="loginEmail" class="field-label">Email Address</label>
+              <div class="input-icon-wrapper">
+                <svg class="field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+                <input 
+                  type="email" 
+                  id="loginEmail" 
+                  class="auth-input" 
+                  placeholder="student@university.edu" 
+                  required 
+                  autocomplete="email"
+                >
+              </div>
+              <span class="field-error-msg" id="loginEmailError"></span>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-field">
+              <label for="loginPassword" class="field-label">Password</label>
+              <div class="input-icon-wrapper">
+                <svg class="field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <input 
+                  type="password" 
+                  id="loginPassword" 
+                  class="auth-input" 
+                  placeholder="Enter your password" 
+                  required 
+                  autocomplete="current-password"
+                >
+                <button type="button" id="loginTogglePasswordBtn" class="btn-toggle-password" aria-label="Toggle password visibility">
+                  <svg class="eye-show" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  <svg class="eye-hide" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                    <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                    <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                    <line x1="2" y1="2" x2="22" y2="22"></line>
+                  </svg>
+                </button>
+              </div>
+              <span class="field-error-msg" id="loginPasswordError"></span>
+            </div>
+
+            <!-- Options Row: Remember Me & Forgot Password -->
+            <div class="form-options-row">
+              <label class="checkbox-container">
+                <input type="checkbox" id="loginRememberMe" checked>
+                <span class="checkbox-custom"></span>
+                <span class="checkbox-label">Remember Me</span>
+              </label>
+              <button type="button" id="forgotPasswordBtn" class="link-btn">Forgot Password?</button>
+            </div>
+
+            <!-- Inline Error Banner -->
+            <div id="loginFormBanner" class="auth-error-banner" role="alert" style="display: none;"></div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="loginSubmitBtn" class="btn-auth-submit">
+              <span>LOGIN</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </form>
+
+          <!-- Demo Quick Logins for Instant Testing -->
+          <div class="demo-accounts-box">
+            <span class="demo-label">Demo Student Accounts (Click to test isolation):</span>
+            <div class="demo-buttons">
+              <button type="button" class="btn-demo-pill" id="demoAlexBtn" title="Login as Alex (Computer Science)">
+                👤 Alex (CS Student)
+              </button>
+              <button type="button" class="btn-demo-pill" id="demoSarahBtn" title="Login as Sarah (Pre-Med Biology)">
+                👤 Sarah (Bio Student)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- REGISTER FORM CONTAINER -->
+        <div id="registerFormContainer" class="auth-form-container" role="tabpanel" aria-labelledby="tabRegisterBtn" style="display: none;">
+          <div class="form-intro">
+            <h2>Create Your Account 🎓</h2>
+            <p>Join StudyFlow to plan courses, assignments, and exam prep.</p>
+          </div>
+
+          <form id="registerForm" class="auth-form" novalidate autocomplete="on">
+            <!-- Full Name Field -->
+            <div class="form-field">
+              <label for="registerName" class="field-label">Full Name</label>
+              <div class="input-icon-wrapper">
+                <svg class="field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <input 
+                  type="text" 
+                  id="registerName" 
+                  class="auth-input" 
+                  placeholder="e.g. Mohamed Rasith M" 
+                  required 
+                  autocomplete="name"
+                >
+              </div>
+              <span class="field-error-msg" id="registerNameError"></span>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-field">
+              <label for="registerEmail" class="field-label">University / Personal Email</label>
+              <div class="input-icon-wrapper">
+                <svg class="field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+                <input 
+                  type="email" 
+                  id="registerEmail" 
+                  class="auth-input" 
+                  placeholder="student@university.edu" 
+                  required 
+                  autocomplete="email"
+                >
+              </div>
+              <span class="field-error-msg" id="registerEmailError"></span>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-field">
+              <label for="registerPassword" class="field-label">Password (Min. 6 characters)</label>
+              <div class="input-icon-wrapper">
+                <svg class="field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <input 
+                  type="password" 
+                  id="registerPassword" 
+                  class="auth-input" 
+                  placeholder="Create a password" 
+                  required 
+                  autocomplete="new-password"
+                >
+                <button type="button" id="registerTogglePasswordBtn" class="btn-toggle-password" aria-label="Toggle password visibility">
+                  <svg class="eye-show" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  <svg class="eye-hide" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                    <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                    <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                    <line x1="2" y1="2" x2="22" y2="22"></line>
+                  </svg>
+                </button>
+              </div>
+              <span class="field-error-msg" id="registerPasswordError"></span>
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="form-field">
+              <label for="registerConfirmPassword" class="field-label">Confirm Password</label>
+              <div class="input-icon-wrapper">
+                <svg class="field-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <input 
+                  type="password" 
+                  id="registerConfirmPassword" 
+                  class="auth-input" 
+                  placeholder="Repeat your password" 
+                  required 
+                  autocomplete="new-password"
+                >
+                <button type="button" id="registerToggleConfirmPasswordBtn" class="btn-toggle-password" aria-label="Toggle confirm password visibility">
+                  <svg class="eye-show" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  <svg class="eye-hide" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                    <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                    <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                    <line x1="2" y1="2" x2="22" y2="22"></line>
+                  </svg>
+                </button>
+              </div>
+              <span class="field-error-msg" id="registerConfirmPasswordError"></span>
+            </div>
+
+            <!-- Inline Error Banner -->
+            <div id="registerFormBanner" class="auth-error-banner" role="alert" style="display: none;"></div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="registerSubmitBtn" class="btn-auth-submit">
+              <span>CREATE ACCOUNT</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- Security Notice Footer -->
+        <div class="auth-security-notice">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <span>Frontend Demonstration Authentication &bull; Browser LocalStorage</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- =========================================================================
+       SCREEN 2: PROTECTED STUDYFLOW DASHBOARD
+       ========================================================================= -->
+  <div id="dashboardScreen" class="dashboard-screen-wrapper" style="display: none;">
+    <!-- Top Application Header -->
+    <header class="app-header" role="banner">
+      <div class="header-container">
+        <div class="header-left">
+          <a href="#dashboard" class="brand-logo" aria-label="StudyFlow Home">
+            <span class="brand-icon">📚</span>
+            <div class="brand-text">
+              <span class="brand-title">STUDYFLOW</span>
+              <span class="brand-subtitle">Student Task Manager</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="header-right">
+          <!-- Live Clock & Date -->
+          <div class="header-time-badge" id="headerTimeBadge" aria-label="Current Date and Time">
+            <svg class="icon-inline" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span id="liveClock">Loading...</span>
+          </div>
+
+          <!-- Theme Toggle Button -->
+          <button id="themeToggleBtn" class="btn-theme-toggle" aria-label="Toggle Dark and Light Theme" title="Toggle Theme (Dark/Light)">
+            <svg class="theme-icon sun-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="theme-icon moon-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span class="theme-label" id="themeLabel">Light</span>
+          </button>
+
+          <!-- User Profile Dropdown Button -->
+          <div class="user-profile-menu-container">
+            <button id="userProfileBtn" class="btn-user-profile" aria-expanded="false" aria-haspopup="true" aria-label="User profile menu">
+              <div class="user-avatar-circle" id="headerUserAvatar">ST</div>
+              <span class="user-name-label" id="headerUserName">Student</span>
+              <svg class="chevron-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+
+            <!-- Dropdown Popover -->
+            <div id="profileDropdown" class="profile-dropdown" role="menu" aria-label="User Profile Options" style="display: none;">
+              <div class="dropdown-user-info">
+                <div class="dropdown-avatar-large" id="dropdownUserAvatar">ST</div>
+                <div class="dropdown-user-details">
+                  <span class="dropdown-name" id="dropdownUserName">Student Name</span>
+                  <span class="dropdown-email" id="dropdownUserEmail">student@email.com</span>
+                  <span class="dropdown-role-pill">ACTIVE STUDENT</span>
+                </div>
+              </div>
+              <div class="dropdown-divider"></div>
+              <button id="openProfileModalBtn" class="dropdown-item" role="menuitem">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Student Profile</span>
+              </button>
+              <button id="logoutBtn" class="dropdown-item item-danger" role="menuitem">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                  <polyline points="16 17 21 12 16 7"></polyline>
+                  <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                <span>Log Out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Layout: Sidebar + Main Workspace -->
+    <div class="app-layout">
+      <!-- Navigation Sidebar -->
+      <aside class="app-sidebar" role="navigation" aria-label="Main Navigation">
+        <nav class="sidebar-nav">
+          <ul class="nav-list">
+            <li class="nav-item">
+              <button class="nav-link active" data-view="dashboard" id="navDashboard">
+                <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+                  <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+                  <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+                  <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+                </svg>
+                <span>Dashboard</span>
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-view="all" id="navAll">
+                <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+                <span>All Tasks</span>
+                <span class="nav-badge" id="badgeAllCount">0</span>
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-view="pending" id="navPending">
+                <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 14 14"></polyline>
+                </svg>
+                <span>Pending</span>
+                <span class="nav-badge badge-pending" id="badgePendingCount">0</span>
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-view="completed" id="navCompleted">
+                <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span>Completed</span>
+                <span class="nav-badge badge-completed" id="badgeCompletedCount">0</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Sidebar Academic Velocity Card -->
+        <div class="sidebar-summary-card">
+          <div class="summary-header">
+            <span class="summary-title">Study Progress</span>
+            <span class="summary-percent" id="sidebarSprintRate">0%</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="sidebarProgressBar" style="width: 0%;"></div>
+          </div>
+          <p class="summary-caption" id="sidebarStatusText">Ready for study session.</p>
+        </div>
+
+        <!-- Sidebar Info Footer -->
+        <div class="sidebar-footer">
+          <span class="oasis-pill">OASIS INFOBYTE</span>
+          <span class="oasis-task-tag">L2 Task 3</span>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="app-main" id="mainContent" role="main">
+        <!-- Workspace Hero / Header -->
+        <section class="workspace-hero">
+          <div class="hero-content">
+            <div class="hero-tag">
+              <span class="tag-badge">STUDENT WORKSPACE</span>
+              <span class="tag-branch">active-session &bull; isolated-data</span>
+            </div>
+            <h1 class="workspace-title">Good day, <span id="userGreetingName">Student</span> 👋</h1>
+            <p class="workspace-subtitle">&ldquo;Stay organized, keep learning, and make progress every day.&rdquo;</p>
+          </div>
+          <div class="hero-actions">
+            <button id="quickSampleBtn" class="btn-secondary btn-sm" title="Load sample academic tasks for demonstration">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="12" y1="18" x2="12" y2="12"></line>
+                <line x1="9" y1="15" x2="15" y2="15"></line>
+              </svg>
+              <span>Sample Tasks</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- 4 Dynamic Statistics Cards -->
+        <section class="stats-section" aria-label="Task Statistics">
+          <div class="stats-grid">
+            <!-- Total Tasks Card -->
+            <div class="stat-card" id="statCardTotal">
+              <div class="stat-icon-wrapper icon-total">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+                  <line x1="3" y1="9" x2="21" y2="9"></line>
+                  <line x1="9" y1="21" x2="9" y2="9"></line>
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">TOTAL TASKS</span>
+                <span class="stat-value" id="statTotal">00</span>
+              </div>
+            </div>
+
+            <!-- Pending Tasks Card -->
+            <div class="stat-card" id="statCardPending">
+              <div class="stat-icon-wrapper icon-pending">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 14 14"></polyline>
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">PENDING</span>
+                <span class="stat-value" id="statPending">00</span>
+              </div>
+            </div>
+
+            <!-- Completed Tasks Card -->
+            <div class="stat-card" id="statCardCompleted">
+              <div class="stat-icon-wrapper icon-completed">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">COMPLETED</span>
+                <span class="stat-value" id="statCompleted">00</span>
+              </div>
+            </div>
+
+            <!-- Completion Rate Card -->
+            <div class="stat-card" id="statCardRate">
+              <div class="stat-icon-wrapper icon-rate">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">PROGRESS</span>
+                <span class="stat-value" id="statRate">0%</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Task Creation Form Section -->
+        <section class="task-form-section" aria-label="Create New Task">
+          <div class="task-form-card">
+            <div class="form-header">
+              <div class="form-header-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <h2>Add New Task</h2>
+              </div>
+              <span class="form-shortcut-hint"><kbd>Enter</kbd> to add</span>
+            </div>
+
+            <form id="taskForm" class="task-form" autocomplete="off" novalidate>
+              <div class="form-row-main">
+                <div class="input-wrapper">
+                  <label for="taskInput" class="visually-hidden">Task Title</label>
+                  <input 
+                    type="text" 
+                    id="taskInput" 
+                    class="task-input" 
+                    placeholder="e.g. Complete Organic Chemistry Lab Report" 
+                    maxlength="150"
+                    required
+                    aria-required="true"
+                  >
+                  <span class="input-char-counter" id="charCounter">0/150</span>
+                </div>
+              </div>
+
+              <div class="form-row-options">
+                <!-- Subject / Category Selector -->
+                <div class="select-group">
+                  <label for="taskCategory" class="select-label">Subject / Category</label>
+                  <div class="custom-select-wrapper">
+                    <select id="taskCategory" class="form-select">
+                      <option value="Assignment" selected>Assignment</option>
+                      <option value="Exam Prep">Exam Prep</option>
+                      <option value="Research">Research</option>
+                      <option value="Reading">Reading</option>
+                      <option value="Project">Project</option>
+                      <option value="Lecture Review">Lecture Review</option>
+                      <option value="General">General</option>
+                    </select>
+                    <span class="select-arrow" aria-hidden="true">▾</span>
+                  </div>
+                </div>
+
+                <!-- Priority Selector -->
+                <div class="select-group">
+                  <label for="taskPriority" class="select-label">Priority</label>
+                  <div class="custom-select-wrapper">
+                    <select id="taskPriority" class="form-select">
+                      <option value="Low">Low</option>
+                      <option value="Medium" selected>Medium</option>
+                      <option value="High">High</option>
+                    </select>
+                    <span class="select-arrow" aria-hidden="true">▾</span>
+                  </div>
+                </div>
+
+                <!-- Due Date Input -->
+                <div class="select-group date-group">
+                  <label for="taskDueDate" class="select-label">Due Date (Optional)</label>
+                  <div class="custom-date-wrapper">
+                    <input type="date" id="taskDueDate" class="form-date-input">
+                  </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="submit-group">
+                  <button type="submit" id="addTaskBtn" class="btn-primary">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    <span>Add Task</span>
+                  </button>
+                </div>
+              </div>
+
+              <div id="formErrorMessage" class="form-error-banner" role="alert" style="display: none;">
+                Please enter a valid task description.
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- Task Controls: Real-time Search, Filters, Sorting -->
+        <section class="task-controls-section" aria-label="Task Controls and Filtering">
+          <div class="controls-bar">
+            <!-- Search Input -->
+            <div class="search-box-wrapper">
+              <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input 
+                type="text" 
+                id="searchInput" 
+                class="search-input" 
+                placeholder="Search tasks by title or subject..." 
+                aria-label="Search tasks"
+              >
+              <button id="clearSearchBtn" class="btn-clear-search" aria-label="Clear Search" style="display: none;">&times;</button>
+            </div>
+
+            <div class="filters-and-sort">
+              <!-- Status Filter Buttons -->
+              <div class="filter-tabs" role="tablist" aria-label="Filter tasks by status">
+                <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true" id="filterTabAll">
+                  All
+                </button>
+                <button class="filter-tab" data-filter="pending" role="tab" aria-selected="false" id="filterTabPending">
+                  Pending
+                </button>
+                <button class="filter-tab" data-filter="completed" role="tab" aria-selected="false" id="filterTabCompleted">
+                  Completed
+                </button>
+              </div>
+
+              <!-- Subject / Category Filter Dropdown -->
+              <div class="category-filter-wrapper">
+                <label for="filterCategory" class="visually-hidden">Filter by Subject</label>
+                <select id="filterCategory" class="filter-select" aria-label="Filter by Subject">
+                  <option value="all">All Subjects</option>
+                  <option value="Assignment">Assignment</option>
+                  <option value="Exam Prep">Exam Prep</option>
+                  <option value="Research">Research</option>
+                  <option value="Reading">Reading</option>
+                  <option value="Project">Project</option>
+                  <option value="Lecture Review">Lecture Review</option>
+                  <option value="General">General</option>
+                </select>
+              </div>
+
+              <!-- Sort By Dropdown -->
+              <div class="sort-wrapper">
+                <label for="sortBySelect" class="visually-hidden">Sort Tasks</label>
+                <select id="sortBySelect" class="filter-select" aria-label="Sort Tasks">
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                  <option value="due-date">Due Date (Soonest)</option>
+                  <option value="priority-desc">Priority (High &rarr; Low)</option>
+                  <option value="priority-asc">Priority (Low &rarr; High)</option>
+                  <option value="title-asc">Title (A &rarr; Z)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Task Lists Workspace Container -->
+        <div class="task-lists-container">
+          <!-- Section 1: Pending Tasks -->
+          <section class="task-section pending-section" id="pendingSection" aria-labelledby="pendingSectionHeading">
+            <div class="section-header">
+              <div class="section-title-wrapper">
+                <div class="section-title-icon pending-icon-bg">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 14 14"></polyline>
+                  </svg>
+                </div>
+                <h2 id="pendingSectionHeading" class="section-heading">Pending Tasks</h2>
+                <span class="section-count-badge badge-pending" id="pendingHeaderCount">0</span>
+              </div>
+              <div class="section-header-actions">
+                <span class="section-hint">Tasks awaiting action</span>
+              </div>
+            </div>
+
+            <!-- Pending Tasks List -->
+            <div class="task-cards-list" id="pendingTasksList" role="region" aria-live="polite">
+              <!-- Dynamically populated by JavaScript -->
+            </div>
+
+            <!-- Pending Empty State -->
+            <div class="empty-state-card" id="pendingEmptyState" style="display: none;">
+              <div class="empty-icon-box">
+                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <h3 class="empty-title">No pending tasks</h3>
+              <p class="empty-description">You're all caught up! Add a new academic task to get started.</p>
+            </div>
+          </section>
+
+          <!-- Section 2: Completed Tasks -->
+          <section class="task-section completed-section" id="completedSection" aria-labelledby="completedSectionHeading">
+            <div class="section-header">
+              <div class="section-title-wrapper">
+                <div class="section-title-icon completed-icon-bg">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                </div>
+                <h2 id="completedSectionHeading" class="section-heading">Completed Tasks</h2>
+                <span class="section-count-badge badge-completed" id="completedHeaderCount">0</span>
+              </div>
+
+              <div class="section-header-actions">
+                <!-- Clear Completed Button -->
+                <button id="clearCompletedBtn" class="btn-clear-completed" style="display: none;" title="Delete all completed tasks">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                  </svg>
+                  <span>Clear Completed</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Completed Tasks List -->
+            <div class="task-cards-list" id="completedTasksList" role="region" aria-live="polite">
+              <!-- Dynamically populated by JavaScript -->
+            </div>
+
+            <!-- Completed Empty State -->
+            <div class="empty-state-card" id="completedEmptyState" style="display: none;">
+              <div class="empty-icon-box">
+                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              </div>
+              <h3 class="empty-title">No completed tasks yet</h3>
+              <p class="empty-description">Complete a study task and your progress will appear here.</p>
+            </div>
+          </section>
+
+          <!-- Search / Filter No Results Empty State -->
+          <div class="empty-state-card full-width" id="searchEmptyState" style="display: none;">
+            <div class="empty-icon-box">
+              <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+              </svg>
+            </div>
+            <h3 class="empty-title">No matching tasks found</h3>
+            <p class="empty-description">Try adjusting your search terms or clearing your active filters.</p>
+            <button id="resetSearchFilterBtn" class="btn-secondary btn-sm" style="margin-top: 12px;">
+              Clear Search &amp; Filters
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- App Footer -->
+    <footer class="app-footer" role="contentinfo">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <span class="footer-icon">📚</span>
+          <span class="footer-title">STUDYFLOW</span>
+          <span class="footer-tagline">&mdash; Student productivity, one goal at a time.</span>
+        </div>
+        <div class="footer-meta">
+          <span>OASIS INFOBYTE SIP &bull; Level 2 &mdash; Task 3</span>
+          <span class="footer-sep">&bull;</span>
+          <span>Author: <strong>Mohamed Rasith M</strong></span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- =========================================================================
+       CUSTOM MODALS
+       ========================================================================= -->
+
+  <!-- Confirmation Modal Dialog (Custom - Zero alert/confirm) -->
+  <div id="confirmModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDescription" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-icon-wrapper danger" id="modalIconBox">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            <line x1="12" y1="9" x2="12" y2="13"></line>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+        </div>
+        <h3 id="modalTitle" class="modal-title">Delete this task?</h3>
+      </div>
+      <div class="modal-body">
+        <p id="modalDescription" class="modal-description">This action cannot be undone. The task will be permanently removed from your workspace.</p>
+        <div id="modalTaskPreview" class="modal-task-preview" style="display: none;"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="modalCancelBtn" class="btn-secondary">Cancel</button>
+        <button id="modalConfirmBtn" class="btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Forgot Password Info Modal -->
+  <div id="forgotPasswordModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="forgotPasswordTitle" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-icon-wrapper info">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+        </div>
+        <h3 id="forgotPasswordTitle" class="modal-title">Demo Account Reset</h3>
+      </div>
+      <div class="modal-body">
+        <p class="modal-description">
+          StudyFlow runs as a frontend internship demonstration using browser localStorage.
+        </p>
+        <div class="demo-creds-hint">
+          <strong>Default Demo Accounts:</strong>
+          <ul>
+            <li><strong>Alex:</strong> <code>alex@studyflow.edu</code> &bull; Password: <code>StudyFlow123!</code></li>
+            <li><strong>Sarah:</strong> <code>sarah@studyflow.edu</code> &bull; Password: <code>StudyFlow123!</code></li>
+          </ul>
+          <p style="margin-top: 8px; font-size: 0.8rem; color: var(--text-secondary);">
+            Or click <strong>"Create Account"</strong> to register your own custom account.
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="closeForgotPasswordModalBtn" class="btn-primary">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student Profile Modal -->
+  <div id="profileModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-icon-wrapper info">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <h3 id="profileModalTitle" class="modal-title">Student Profile Details</h3>
+      </div>
+      <div class="modal-body">
+        <div class="profile-card-content">
+          <div class="profile-modal-avatar" id="modalProfileAvatar">ST</div>
+          <div class="profile-modal-fields">
+            <div class="profile-field-row">
+              <span class="profile-field-label">Student Name:</span>
+              <strong id="modalProfileName">Student Name</strong>
+            </div>
+            <div class="profile-field-row">
+              <span class="profile-field-label">Email:</span>
+              <span id="modalProfileEmail">student@email.com</span>
+            </div>
+            <div class="profile-field-row">
+              <span class="profile-field-label">Member Since:</span>
+              <span id="modalProfileJoined">Aug 12, 2026</span>
+            </div>
+            <div class="profile-field-row">
+              <span class="profile-field-label">Your Active Tasks:</span>
+              <span class="badge-count-pill" id="modalProfileTaskCount">0 Tasks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="closeProfileModalBtn" class="btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container (Accessible via aria-live) -->
+  <div id="toastContainer" class="toast-container" role="region" aria-live="polite" aria-label="Notifications">
+    <!-- Toasts dynamically injected here -->
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
